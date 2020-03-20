@@ -5,6 +5,7 @@
 .main {
   padding: 1em;
   flex: 1 1 auto;
+  overflow-x: hidden;
 }
 
 .side {
@@ -23,6 +24,7 @@
   cursor: pointer;
   padding: 2em;
   opacity: 0.5;
+  z-index: 10;
 
   &:hover {
     opacity: 1;

@@ -21,6 +21,10 @@ $text-color-light: #666666;
     padding: 0.75em 2em;
   }
 
+  tr {
+    cursor: pointer;
+  }
+
   tr:hover td {
     background: $hover-color;
   }
