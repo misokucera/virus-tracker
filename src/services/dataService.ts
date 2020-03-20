@@ -14,6 +14,7 @@ export type DailyChange = {
 };
 
 export type Country = {
+    id: string;
     name: string;
     dailyChanges: DailyChange[];
     totalVictims: VictimStats;
@@ -46,6 +47,7 @@ const mapDataFromSource = (data: { [key: string]: any[] }): Country[] => {
         const last = dailyChanges[dailyChanges.length - 1];
 
         countries.push({
+            id: String(countries.length),
             name: name,
             dailyChanges: dailyChanges,
             totalVictims: {

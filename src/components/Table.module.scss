@@ -1,6 +1,7 @@
 $border-color: #aaaaaa;
 $border-color-light: #dddddd;
 $hover-color: #f7f7f7;
+$selection-color: #42a5f5;
 $icon-color: #666666;
 $text-color: #323232;
 $text-color-light: #666666;
@@ -9,12 +10,8 @@ $text-color-light: #666666;
   border-spacing: 0;
   color: $text-color;
 
-  tr {
-    :last-child {
-      td {
-        border-bottom: 0;
-      }
-    }
+  tr:last-child td {
+    border-bottom: 0;
   }
 
   th,
@@ -26,6 +23,11 @@ $text-color-light: #666666;
 
   tr:hover td {
     background: $hover-color;
+  }
+
+  tr.selected td {
+    background: #42a5f5;
+    color: white;
   }
 
   th {
@@ -49,7 +51,7 @@ $text-color-light: #666666;
 
   th:first-child,
   td:first-child {
-      text-align: left;
+    text-align: left;
   }
 }
 

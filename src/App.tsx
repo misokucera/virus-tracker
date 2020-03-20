@@ -1,68 +1,56 @@
-import React, {useEffect, useMemo, useState} from 'react';
-import './App.css';
-import {Table} from "./components/Table";
-import {Country, getCountries} from "./services/dataService";
-import {Chart} from "./components/Chart";
+import React, { useEffect, useState } from 'react';
+import { Country, getCountries } from './services/dataService';
+import styles from './App.module.scss';
+import { CountryDetail } from './components/CountryDetail';
+import { CountryList } from './components/CountryList';
+import { MdClose } from 'react-icons/md';
 
 function App() {
-  const columns = useMemo(() => [
-    {
-      header: 'Country',
-      accessor: 'name',
-    },
-    {
-      header: 'Total confirmed',
-      accessor: 'totalVictims.confirmed'
-    },
-    {
-      header: 'Total deaths',
-      accessor: 'totalVictims.deaths'
-    },
-    {
-      header: 'Total recovered',
-      accessor: 'totalVictims.recovered'
-    },
-    {
-      header: 'Last day confirmed',
-      accessor: 'lastDayChange.confirmed'
-    },
-    {
-      header: 'Last day deaths',
-      accessor: 'lastDayChange.deaths'
-    },
-    {
-      header: 'Last day recovered',
-      accessor: 'lastDayChange.recovered'
-    },
-  ], []);
+    const [countries, setCountries] = useState<Country[]>([]);
+    const [selectedCountry, setSelectedCountry] = useState<Country | null>(
+        null
+    );
 
-  const [data, setData] = useState<Country[]>([]);
-  const [selectedCountry, setSelectedCountry] = useState<Country>();
+    useEffect(() => {
+        getCountries().then(countries => {
+            setCountries(countries);
+        });
+    }, []);
 
-  useEffect(() => {
-    getCountries().then(data => {
-      setData(data);
-    });
-  }, []);
+    const handleCountrySelection = (country: Country) => {
+        if (country) {
+            setSelectedCountry(country);
+        }
+    };
 
-  const memoizedData = useMemo(() => {
-    return data;
-  }, [data]);
+    const handleCloseDetail = () => {
+        setSelectedCountry(null);
+    };
 
-  const handleCountrySelection = (id: string) => {
-      const country = data[Number(id)];
-
-      if (country) {
-          setSelectedCountry(country);
-      }
-  };
-
-  return (
-      <>
-        {selectedCountry && <Chart data={selectedCountry.dailyChanges}/>}
-        {data.length && <Table columns={columns} data={memoizedData} onCountrySelect={handleCountrySelection}/>}
-      </>
-  );
+    return (
+        <div className={styles.layout}>
+            {countries.length && (
+                <div className={styles.main}>
+                    <CountryList
+                        countries={countries}
+                        selectedCountryId={selectedCountry ? selectedCountry.id : ''}
+                        onCountrySelect={handleCountrySelection}
+                    />
+                </div>
+            )}
+            {selectedCountry && (
+                <div className={styles.side}>
+                    <button
+                        className={styles.close}
+                        onClick={handleCloseDetail}
+                    >
+                        <MdClose />
+                    </button>
+                    <CountryDetail country={selectedCountry} />
+                </div>
+            )}
+        </div>
+    );
 }
 
 export default App;

@@ -4,12 +4,13 @@ import styles from './Table.module.scss';
 import { MdUnfoldMore, MdExpandLess, MdExpandMore } from 'react-icons/md';
 
 type Props = {
-    onCountrySelect?: (id: string) => void
-    columns: Column[];
     data: any[];
+    columns: Column[];
+    selectedRowId: string;
+    onRowSelected?: (id: string) => void;
 };
 
-export function Table({ columns, data, onCountrySelect }: Props) {
+export function Table({ columns, data, selectedRowId, onRowSelected }: Props) {
     const {
         getTableProps,
         getTableBodyProps,
@@ -25,8 +26,8 @@ export function Table({ columns, data, onCountrySelect }: Props) {
     );
 
     const handleSelection = (id: string): void => {
-        if (onCountrySelect) {
-            onCountrySelect(id);
+        if (onRowSelected) {
+            onRowSelected(id);
         }
     };
 
@@ -63,11 +64,11 @@ export function Table({ columns, data, onCountrySelect }: Props) {
                     ))}
                 </thead>{' '}
                 <tbody {...getTableBodyProps()}>
-                    {rows.map((row, i) => {
+                    {rows.map((row: any, i) => {
                         prepareRow(row);
                         return (
-                            <tr {...row.getRowProps()} onClick={() => handleSelection(row.id)}>
-                                {row.cells.map(cell => {
+                            <tr {...row.getRowProps()} onClick={() => handleSelection(row.original.id)} className={selectedRowId === row.id ? styles.selected : ''}>
+                                {row.cells.map((cell: any) => {
                                     return (
                                         <td {...cell.getCellProps()}>
                                             {cell.render('Cell')}
