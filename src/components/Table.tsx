@@ -4,12 +4,12 @@ import styles from './Table.module.scss';
 import { MdUnfoldMore, MdExpandLess, MdExpandMore } from 'react-icons/md';
 
 type Props = {
+    onCountrySelect?: (id: string) => void
     columns: Column[];
     data: any[];
 };
 
-export function Table({ columns, data }: Props) {
-    // Use the state and functions returned from useTable to build your UI
+export function Table({ columns, data, onCountrySelect }: Props) {
     const {
         getTableProps,
         getTableBodyProps,
@@ -23,6 +23,12 @@ export function Table({ columns, data }: Props) {
         },
         useSortBy
     );
+
+    const handleSelection = (id: string): void => {
+        if (onCountrySelect) {
+            onCountrySelect(id);
+        }
+    };
 
     return (
         <>
@@ -60,7 +66,7 @@ export function Table({ columns, data }: Props) {
                     {rows.map((row, i) => {
                         prepareRow(row);
                         return (
-                            <tr {...row.getRowProps()}>
+                            <tr {...row.getRowProps()} onClick={() => handleSelection(row.id)}>
                                 {row.cells.map(cell => {
                                     return (
                                         <td {...cell.getCellProps()}>

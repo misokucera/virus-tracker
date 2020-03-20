@@ -36,18 +36,12 @@ function App() {
     },
   ], []);
 
-  const selectedCountryKey = 'Italy';
-
   const [data, setData] = useState<Country[]>([]);
   const [selectedCountry, setSelectedCountry] = useState<Country>();
 
   useEffect(() => {
     getCountries().then(data => {
       setData(data);
-      const country = data.find(country => country.name === selectedCountryKey);
-      if (country) {
-        setSelectedCountry(country);
-      }
     });
   }, []);
 
@@ -55,10 +49,18 @@ function App() {
     return data;
   }, [data]);
 
+  const handleCountrySelection = (id: string) => {
+      const country = data[Number(id)];
+
+      if (country) {
+          setSelectedCountry(country);
+      }
+  };
+
   return (
       <>
         {selectedCountry && <Chart data={selectedCountry.dailyChanges}/>}
-        {data.length && <Table columns={columns} data={memoizedData}/>}
+        {data.length && <Table columns={columns} data={memoizedData} onCountrySelect={handleCountrySelection}/>}
       </>
   );
 }
