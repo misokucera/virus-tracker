@@ -26,7 +26,20 @@ const defaultVictimStats: VictimStats = {
     recovered: 0
 };
 
-export const getCountries = () => {
+const API_URL = 'https://pomber.github.io/covid19/timeseries.json';
+
+export const getCountries = async () => {
+    if (process.env.NODE_ENV === 'production') {
+        const response = await fetch(API_URL);
+        const data = await response.json();
+
+        return mapDataFromSource(data);
+    }
+
+    return mapDataFromSource(data);
+};
+
+const mapDataFromSource = (data: { [key: string]: any[] }): Country[] => {
     const countries: Country[] = [];
 
     for (let [name, dailyChanges] of Object.entries(data)) {
