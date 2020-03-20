@@ -1,0 +1,70 @@
+$border-color: #aaaaaa;
+$border-color-light: #dddddd;
+$hover-color: #f7f7f7;
+$icon-color: #666666;
+$text-color: #323232;
+$text-color-light: #666666;
+
+.table {
+  border-spacing: 0;
+  color: $text-color;
+
+  tr {
+    :last-child {
+      td {
+        border-bottom: 0;
+      }
+    }
+  }
+
+  th,
+  td {
+    margin: 0;
+    text-align: right;
+    padding: 0.75em 2em;
+  }
+
+  tr:hover td {
+    background: $hover-color;
+  }
+
+  th {
+    color: $text-color-light;
+    text-transform: uppercase;
+    border-bottom: 1px solid $border-color;
+  }
+
+  th.active {
+    color: $text-color;
+  }
+
+  th.active .icon,
+  th:hover .icon {
+    opacity: 1;
+  }
+
+  td {
+    border-bottom: 1px solid $border-color-light;
+  }
+
+  th:first-child,
+  td:first-child {
+      text-align: left;
+  }
+}
+
+.icon {
+  position: absolute;
+  right: -1.5em;
+  display: flex;
+  opacity: 0.5;
+  color: $icon-color;
+  font-size: 1.3em;
+}
+
+.title {
+  display: inline-flex;
+  position: relative;
+  align-items: center;
+  font-size: 0.8em;
+}
