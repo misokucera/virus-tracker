@@ -67,7 +67,7 @@ export function Table({ columns, data, selectedRowId, onRowSelected }: Props) {
                     {rows.map((row: any, i) => {
                         prepareRow(row);
                         return (
-                            <tr {...row.getRowProps()} onClick={() => handleSelection(row.original.id)} className={selectedRowId === row.id ? styles.selected : ''}>
+                            <tr {...row.getRowProps()} onClick={() => handleSelection(row.original.id)} className={selectedRowId === row.original.id ? styles.selected : ''}>
                                 {row.cells.map((cell: any) => {
                                     return (
                                         <td {...cell.getCellProps()}>

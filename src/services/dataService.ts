@@ -1,4 +1,5 @@
 import data from '../tests/data/timeseries.json';
+import slugify from 'slugify';
 
 type VictimStats = {
     confirmed: number;
@@ -47,7 +48,7 @@ const mapDataFromSource = (data: { [key: string]: any[] }): Country[] => {
         const last = dailyChanges[dailyChanges.length - 1];
 
         countries.push({
-            id: String(countries.length),
+            id: slugify(name, {lower: true}),
             name: name,
             dailyChanges: dailyChanges,
             totalVictims: {
