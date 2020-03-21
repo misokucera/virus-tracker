@@ -1,5 +1,5 @@
 import React from 'react';
-import {useHistory, useParams} from 'react-router';
+import { useHistory, useParams } from 'react-router';
 import { Country } from '../services/dataService';
 import styles from '../App.module.scss';
 import { MdClose } from 'react-icons/md';
@@ -16,13 +16,13 @@ export function CountryDetailRoute({ countries }: Props) {
     const selectedCountry = countries.find(country => country.id === id);
 
     const handleCloseDetail = () => {
-        history.push("/");
+        history.push('/');
     };
 
     return (
         <>
             {selectedCountry && (
-                <div className={styles.side}>
+                <>
                     <button
                         className={styles.close}
                         onClick={handleCloseDetail}
@@ -30,7 +30,7 @@ export function CountryDetailRoute({ countries }: Props) {
                         <MdClose />
                     </button>
                     <CountryDetail country={selectedCountry} />
-                </div>
+                </>
             )}
         </>
     );

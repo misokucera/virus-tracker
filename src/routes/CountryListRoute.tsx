@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import styles from '../App.module.scss';
 import { CountryList } from '../components/CountryList';
 import { Country } from '../services/dataService';
@@ -18,12 +18,12 @@ export function CountryListRoute({ countries }: Props) {
     return (
         <>
             {countries.length > 0 && (
-                <div className={styles.main}>
+                <>
                     <CountryList
                         countries={countries}
-                        selectedCountryId={id || '' }
+                        selectedCountryId={id || ''}
                     />
-                </div>
+                </>
             )}
         </>
     );
