@@ -15,8 +15,8 @@ export function Summary({ items }: Props) {
         <>
             {items.length && (
                 <div className={styles.summary}>
-                    {items.map(item => (
-                        <div className={styles.item}>
+                    {items.map((item, index)=> (
+                        <div className={styles.item} key={index}>
                             <p className={styles.label}>{item.label}</p>
                             <p className={styles.value}>{item.value}</p>
                         </div>

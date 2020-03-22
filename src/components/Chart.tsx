@@ -10,17 +10,34 @@ import {
 import { DailyChange } from '../services/dataService';
 
 type Props = {
-    data: DailyChange[];
+    dailyChanges: DailyChange[];
 };
 
-export function Chart({ data }: Props) {
+export function Chart({ dailyChanges }: Props) {
+    const prepareData = (data: DailyChange[]) => {
+        return dailyChanges.map(dailyChange => {
+            return {
+                ...dailyChange,
+                date: new Date(dailyChange.date).toLocaleDateString()
+            };
+        });
+    };
+
     return (
         <ResponsiveContainer width="100%" height={300}>
             <LineChart
-                data={data}
-                margin={{ top: 5, right: 20, left: 10, bottom: 5 }}
+                data={prepareData(dailyChanges)}
+                margin={{ top: 5, right: 20, left: 10, bottom: 50 }}
             >
-                <XAxis dataKey="date" />
+                <XAxis
+                    dataKey="date"
+                    angle={-45}
+                    textAnchor="end"
+                    dx={-5}
+                    dy={5}
+                    minTickGap={-45}
+                    tick={{ fontSize: 9 }}
+                />
                 <Tooltip />
                 <CartesianGrid stroke="#f5f5f5" />
                 <Line

@@ -10,10 +10,7 @@ type Props = {
     onCountrySelect?: (country: Country) => void;
 };
 
-export function CountryList({
-    countries,
-    selectedCountryId,
-}: Props) {
+export function CountryList({ countries, selectedCountryId }: Props) {
     const columns = useMemo(
         () => [
             {

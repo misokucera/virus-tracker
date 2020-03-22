@@ -8,7 +8,7 @@ import { useMediaQuery } from 'react-responsive';
 
 function App() {
     const [countries, setCountries] = useState<Country[]>([]);
-    const isMobile = useMediaQuery({ query: '(max-width: 900)' });
+    const isMobile = useMediaQuery({ query: '(max-width: 1000px)' });
 
     useEffect(() => {
         getCountries().then(countries => {

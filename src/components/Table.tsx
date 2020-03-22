@@ -42,7 +42,7 @@ export function Table({ columns, data, selectedRowId, onRowSelected }: Props) {
                                     {...column.getHeaderProps(
                                         column.getSortByToggleProps()
                                     )}
-                                    className={column.isSorted && styles.active}
+                                    className={column.isSorted ? styles.active : ''}
                                 >
                                     <div className={styles.title}>
                                         {column.render('header')}
@@ -62,12 +62,20 @@ export function Table({ columns, data, selectedRowId, onRowSelected }: Props) {
                             ))}
                         </tr>
                     ))}
-                </thead>{' '}
+                </thead>
                 <tbody {...getTableBodyProps()}>
                     {rows.map((row: any, i) => {
                         prepareRow(row);
                         return (
-                            <tr {...row.getRowProps()} onClick={() => handleSelection(row.original.id)} className={selectedRowId === row.original.id ? styles.selected : ''}>
+                            <tr
+                                {...row.getRowProps()}
+                                onClick={() => handleSelection(row.original.id)}
+                                className={
+                                    selectedRowId === row.original.id
+                                        ? styles.selected
+                                        : ''
+                                }
+                            >
                                 {row.cells.map((cell: any) => {
                                     return (
                                         <td {...cell.getCellProps()}>
