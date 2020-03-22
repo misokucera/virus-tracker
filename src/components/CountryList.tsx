@@ -64,6 +64,9 @@ export function CountryList({ countries, selectedCountryId }: Props) {
                 selectedRowId={selectedCountryId}
                 onRowSelected={handleCountrySelection}
             />
+            <p>
+                <i>Data source: <a href="https://github.com/pomber/covid19">https://github.com/pomber/covid19</a></i>
+            </p>
         </div>
     );
 }
